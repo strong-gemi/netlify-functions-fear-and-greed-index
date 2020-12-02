@@ -1,7 +1,49 @@
-exports.handler = function(event, context, callback) {
-  // ここに中身の処理を記述
-  callback(null, {
+import querystring from "querystring";
+import fetch from "node-fetch";
+
+function getFearAndGreedIndex() {
+  const options = {
+    method: "GET",
+    headers: {
+      "x-rapidapi-host": process.env.X_RAPIDAPI_HOST,
+      "x-rapidapi-key": process.env.X_RAPIDAPI_KEY,
+      useQueryString: true
+    }
+  };
+  return fetch(process.env.API_URL, options);
+}
+function notificationSlack(json) {
+  return fetch(process.env.SLACK_WEBHOOK_URL, {
+    headers: {
+      "content-type": "application/json"
+    },
+    method: "POST",
+    body: JSON.stringify({
+      text: `Fear & Greed Index: ${json.fgi.now.value}(${json.fgi.now.valueText})`
+    })
+  })
+    .then(() => ({
+      statusCode: 200,
+      body: `Your greeting has been sent to Slack 👋`
+    }))
+    .catch(error => ({
+      statusCode: 422,
+      body: `Oops! Something went wrong. ${error}`
+    }));
+}
+
+exports.handler = async (event, context, callback) => {
+  // Only allow POST
+  if (event.httpMethod !== "POST") {
+    return { statusCode: 405, body: "Method Not Allowed" };
+  }
+  //const params = querystring.parse(event.body);
+  const response = await getFearAndGreedIndex();
+  const json = await response.json();
+  await notificationSlack(json);
+
+  return {
     statusCode: 200,
-    body: "Hello World"
-  });
+    body: "done"
+  };
 };

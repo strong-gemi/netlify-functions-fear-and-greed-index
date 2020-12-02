@@ -5,13 +5,15 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "netlify-lambda serve src/functions",
+    "dev": "netlify-lambda serve src/functions --config ./webpack.functions.js",
     "build": "netlify-lambda build src/functions"
-    
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "netlify-lambda": "^2.0.1"
+    "dotenv-webpack": "^6.0.0",
+    "netlify-lambda": "^2.0.1",
+    "node-fetch": "^2.6.1",
+    "querystring": "^0.2.0"
   }
 }

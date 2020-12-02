@@ -1,3 +1,6 @@
 [build]
   command = "npm run build"
   functions = "dist/functions"
+[build.environment]
+  X_RAPIDAPI_HOST="fear-and-greed-index.p.rapidapi.com"
+  API_URL="https://fear-and-greed-index.p.rapidapi.com/v1/fgi"
