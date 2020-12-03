@@ -1,16 +1,16 @@
-import querystring from "querystring";
+//import querystring from "querystring";
 import fetch from "node-fetch";
 
 function getFearAndGreedIndex() {
   const options = {
     method: "GET",
     headers: {
-      "x-rapidapi-host": process.env.X_RAPIDAPI_HOST,
+      "x-rapidapi-host": "fear-and-greed-index.p.rapidapi.com",
       "x-rapidapi-key": process.env.X_RAPIDAPI_KEY,
       useQueryString: true
     }
   };
-  return fetch(process.env.API_URL, options);
+  return fetch("https://fear-and-greed-index.p.rapidapi.com/v1/fgi", options);
 }
 function notificationSlack(json) {
   return fetch(process.env.SLACK_WEBHOOK_URL, {
