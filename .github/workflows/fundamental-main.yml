@@ -9,6 +9,10 @@ jobs:
     name: build
     runs-on: ubuntu-latest
     steps:
+      - name: tsla
+        run: curl --show-error -X POST -d {} "https://strong-gemi.netlify.app/.netlify/functions/fundamental-main?symbol=TSLA"
+      - name: pltr
+        run: curl --show-error -X POST -d {} "https://strong-gemi.netlify.app/.netlify/functions/fundamental-main?symbol=PLTR"
       - name: nkla
         run: curl --show-error -X POST -d {} "https://strong-gemi.netlify.app/.netlify/functions/fundamental-main?symbol=NKLA"
       - name: snow
