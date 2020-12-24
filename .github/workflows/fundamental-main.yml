@@ -9,7 +9,7 @@ jobs:
   build:
     strategy:
       matrix:
-       symbol-list: [LMND,FUBO,LAZR,VLDR]
+       symbol-list: [LMND,FUBO,LAZR,VLDR,TSLA,PLTR,NKLA,SNOW]
     name: build
     runs-on: ubuntu-latest
     steps:
@@ -20,11 +20,11 @@ jobs:
       #  env:
       #    LIST: FUBO b.scss
       #  run: for l in $LIST; do curl --show-error -X POST -d {} "https://strong-gemi.netlify.app/.netlify/functions/fundamental-main?symbol=TSLA"; done
-      - name: tsla
-        run: curl --show-error -X POST -d {} "https://strong-gemi.netlify.app/.netlify/functions/fundamental-main?symbol=TSLA"
-      - name: pltr
-        run: curl --show-error -X POST -d {} "https://strong-gemi.netlify.app/.netlify/functions/fundamental-main?symbol=PLTR"
-      - name: nkla
-        run: curl --show-error -X POST -d {} "https://strong-gemi.netlify.app/.netlify/functions/fundamental-main?symbol=NKLA"
-      - name: snow
-        run: curl --show-error -X POST -d {} "https://strong-gemi.netlify.app/.netlify/functions/fundamental-main?symbol=SNOW"
+      #- name: tsla
+      #  run: curl --show-error -X POST -d {} "https://strong-gemi.netlify.app/.netlify/functions/fundamental-main?symbol=TSLA"
+      #- name: pltr
+      #  run: curl --show-error -X POST -d {} "https://strong-gemi.netlify.app/.netlify/functions/fundamental-main?symbol=PLTR"
+      #- name: nkla
+      #  run: curl --show-error -X POST -d {} "https://strong-gemi.netlify.app/.netlify/functions/fundamental-main?symbol=NKLA"
+      #- name: snow
+      #  run: curl --show-error -X POST -d {} "https://strong-gemi.netlify.app/.netlify/functions/fundamental-main?symbol=SNOW"
