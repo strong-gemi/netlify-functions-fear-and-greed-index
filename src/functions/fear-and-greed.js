@@ -1,7 +1,7 @@
 //import querystring from "querystring";
 import fetch from "node-fetch";
 
-function getFearAndGreedIndex() {
+function getCompanyInfo() {
   const options = {
     method: "GET",
     headers: {
