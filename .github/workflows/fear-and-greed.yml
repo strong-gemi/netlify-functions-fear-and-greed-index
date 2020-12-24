@@ -1,0 +1,13 @@
+name: Fear And Greed
+on:
+  schedule:
+    # 월화수목금 9~18시에 한시간마다 실행
+    # UTC의 09:00는 한국시간 18:00
+    - cron: '0 13-23/1 * * 1-5'
+jobs:
+  build:
+    name: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: fear-and-greed
+        run: curl --show-error -X POST -d {} "https://strong-gemi.netlify.app/.netlify/functions/fear-and-greed"

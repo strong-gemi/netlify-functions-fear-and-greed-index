@@ -1,0 +1,15 @@
+name: Fundamental Main
+on:
+  schedule:
+    # 월화수목금 9~18시에 한시간마다 실행
+    # UTC의 09:00는 한국시간 18:00
+    - cron: '0 13-23/1 * * 1-5'
+jobs:
+  build:
+    name: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: nkla
+        run: curl --show-error -X POST -d {} "https://strong-gemi.netlify.app/.netlify/functions/fundamental-main?symbol=NKLA"
+      - name: snow
+        run: curl --show-error -X POST -d {} "https://strong-gemi.netlify.app/.netlify/functions/fundamental-main?symbol=SNOW"
