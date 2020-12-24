@@ -1,4 +1,5 @@
 name: Fundamental Main
+on: [push]
 on:
   schedule:
     # 월화수목금 9~18시에 한시간마다 실행
@@ -6,9 +7,19 @@ on:
     - cron: '0 13-23/1 * * 1-5'
 jobs:
   build:
+    strategy:
+      matrix:
+       symbol-list: [LMND,FUBO,LAZR,VLDR]
     name: build
     runs-on: ubuntu-latest
     steps:
+      - name: ${{matrix.symbol-list}}
+        run: |
+          curl --show-error -X POST -d {} "https://strong-gemi.netlify.app/.netlify/functions/fundamental-main?symbol=${{matrix.symbol-list}}"
+      #- name: run loop
+      #  env:
+      #    LIST: FUBO b.scss
+      #  run: for l in $LIST; do curl --show-error -X POST -d {} "https://strong-gemi.netlify.app/.netlify/functions/fundamental-main?symbol=TSLA"; done
       - name: tsla
         run: curl --show-error -X POST -d {} "https://strong-gemi.netlify.app/.netlify/functions/fundamental-main?symbol=TSLA"
       - name: pltr
