@@ -9,7 +9,7 @@ jobs:
   build:
     strategy:
       matrix:
-       symbol-list: [LMND,FUBO,LAZR,VLDR,TSLA,PLTR,NKLA,SNOW]
+       symbol-list: [LMND,FUBO,LAZR,VLDR,TSLA,PLTR,NKLA,SNOW,SHOP,SPLK]
     name: build
     runs-on: ubuntu-latest
     steps:
