@@ -262,6 +262,7 @@ exports.handler = async (event, context, callback) => {
     };
   }
 
+  console.log("success");
   return {
     statusCode: 200,
     body: "done"
