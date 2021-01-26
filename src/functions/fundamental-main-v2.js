@@ -209,7 +209,8 @@ exports.handler = async (event, context, callback) => {
   }
 
   //GLOBAL_QUOTE
-  const symbol = event["body"];
+  const body = event["body"];
+  const symbol = body.split("text=")[1];
   console.log("body symbol:", symbol);
 
   //const symbol = event["queryStringParameters"]["symbol"];
