@@ -237,6 +237,7 @@ exports.handler = async (event, context, callback) => {
   try {
     res2 = await getAlphaVantageApi("GLOBAL_QUOTE", symbol);
     globalQuote = await res2.json();
+    console.log("globalQuote:", globalQuote["Global Quote"]);
   } catch (e) {
     console.log("getAlphaVantageApi GLOBAL_QUOTE failed:", e);
   }
