@@ -212,6 +212,7 @@ exports.handler = async (event, context, callback) => {
   const symbol = event["queryStringParameters"]["symbol"];
   //console.log("symbol", symbol);
   if (!symbol) {
+    console.log("Symbol Params is missing:", event["queryStringParameters"]);
     return { statusCode: 405, body: "Symbol Params is missing" };
   }
 
@@ -222,11 +223,23 @@ exports.handler = async (event, context, callback) => {
   //console.log("yaml", yaml);
   //console.log("settings:", settings);
   //const params = querystring.parse(event.body);
-  const res = await getAlphaVantageApi("OVERVIEW", symbol);
-  const overview = await res.json();
+  let res;
+  let overview;
+  let res2;
+  let globalQuote;
+  try {
+    res = await getAlphaVantageApi("OVERVIEW", symbol);
+    overview = await res.json();
+  } catch (e) {
+    console.log("getAlphaVantageApi OVERVIEW failed:", e);
+  }
 
-  const res2 = await getAlphaVantageApi("GLOBAL_QUOTE", symbol);
-  const globalQuote = await res2.json();
+  try {
+    res2 = await getAlphaVantageApi("GLOBAL_QUOTE", symbol);
+    globalQuote = await res2.json();
+  } catch (e) {
+    console.log("getAlphaVantageApi GLOBAL_QUOTE failed:", e);
+  }
 
   //const json = await overview.json();
 
@@ -242,6 +255,7 @@ exports.handler = async (event, context, callback) => {
   try {
     await notificationSlack(overview, globalQuote, symbol);
   } catch (e) {
+    console.log("notification Slack failed:", e);
     return {
       statusCode: 500,
       body: e
