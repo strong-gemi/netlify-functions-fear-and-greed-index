@@ -121,7 +121,8 @@ function notificationSlack(overview, globalQuote, symbol) {
               }%`
             }
           ]
-        },
+        }
+        /*
         {
           type: "context",
           elements: [
@@ -188,7 +189,7 @@ function notificationSlack(overview, globalQuote, symbol) {
               emoji: true
             }
           }
-        }
+        } */
       ]
     })
   })
