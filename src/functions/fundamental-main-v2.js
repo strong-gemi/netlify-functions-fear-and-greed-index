@@ -4,7 +4,7 @@ import fetch from "node-fetch";
 //const yaml = require("js-yaml");
 
 //import settings from "@/common/settings.yml";
-
+import { marketCapitalization } from "@/view-decorators/globalquote";
 function getAlphaVantageApi(func, symbol) {
   const options = {
     method: "GET"
@@ -96,9 +96,9 @@ function notificationSlack(overview, globalQuote, symbol) {
             },
             {
               type: "mrkdwn",
-              text: `*MarketCapitalization(시가총액):*\ ${
+              text: `*MarketCapitalization(시가총액):*\ ${marketCapitalization(
                 overview["MarketCapitalization"]
-              }`
+              )}`
             },
             {
               type: "mrkdwn",
