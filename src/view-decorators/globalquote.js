@@ -24,7 +24,7 @@ function numberToKorean(number) {
     resultString = String(resultArray[i]) + unitWords[i] + resultString;
   }
 
-  return resultString;
+  return resultString + "달러";
 }
 
 function numberToEng(number) {
