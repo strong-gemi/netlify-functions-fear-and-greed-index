@@ -1,0 +1,36 @@
+  title: "Reading and Writing YAML to a File in Node.js/JavaScript"
+  url path: "/reading-and-writing-yaml-to-a-file-in-node-js-javascript"
+  domain: "stackabuse.com"
+  port: 443
+  is-https: true
+  meta:
+    published-at: "Nov. 1st, 2019"
+    author:
+      name: "Scott Robinson"
+      contact: "scott@stackabuse.com"
+    tags:
+      - javascript
+      - node.js
+      - web development
+  nkla:
+    name: "니콜라"
+    homepage-url: https://nikolamotor.com/
+    linkedin-url: https://www.linkedin.com/company/nikola-motor-company/
+    linkedin-e-url: https://www.linkedin.com/search/results/people/?currentCompany=%5B%2215252329%22%5D&origin=COMPANY_PAGE_CANNED_SEARCH
+  pltr:
+    name: "팔란티어"
+    homepage-url: https://www.palantir.com/
+    linkedin-url: https://www.linkedin.com/company/palantir-technologies/
+    linkedin-e-url: https://www.linkedin.com/search/results/people/?currentCompany=%5B%2220708%22%5D&origin=COMPANY_PAGE_CANNED_SEARCH
+    #channel: "#nyse_pltr_팔란티어"
+  twlo:
+    name: "트윌로"
+    homepage-url: https://www.twilio.com/
+    linkedin-url: https://www.linkedin.com/company/twilio-inc-/
+    linkedin-e-url: https://www.linkedin.com/search/results/people/?currentCompany=%5B%22400528%22%5D&origin=COMPANY_PAGE_CANNED_SEARCH
+  tlsa:
+    name: "테슬라"
+    homepage-url: 
+    linkedin-url:
+    linkedin-e-url:  
+    #channel: "#nasdaq_tlsa_테슬라"
