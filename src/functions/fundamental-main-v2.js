@@ -19,6 +19,9 @@ function getAlphaVantageApi(func, symbol) {
 }
 
 function notificationSlack(overview, globalQuote, symbol) {
+  const marketCapitalization2 = marketCapitalization(
+    overview["MarketCapitalization"]
+  );
   //const payload = {
   //  username: "webhook",
   //  channel: "@arkf",
@@ -96,9 +99,7 @@ function notificationSlack(overview, globalQuote, symbol) {
             },
             {
               type: "mrkdwn",
-              text: `*MarketCapitalization(시가총액):*\ ${marketCapitalization(
-                overview["MarketCapitalization"]
-              )}`
+              text: `*MarketCapitalization(시가총액):*\ ${marketCapitalization2}`
             },
             {
               type: "mrkdwn",
@@ -121,6 +122,170 @@ function notificationSlack(overview, globalQuote, symbol) {
               }%`
             }
           ]
+        },
+        {
+          type: "divider"
+        },
+        {
+          type: "section",
+          fields: [
+            {
+              type: "mrkdwn",
+              text: `*Short Ratio:*\n${overview["ShortRatio"]}`
+            },
+            {
+              type: "mrkdwn",
+              text: `*Short % of Float:*\n${overview["ShortPercentFloat"]}`
+            },
+            {
+              type: "mrkdwn",
+              text: `*Short % Outstanding*\n${
+                overview["ShortPercentOutstanding"]
+              }%`
+            }
+          ]
+        },
+        {
+          type: "section",
+          text: {
+            type: "mrkdwn",
+            text: ":link: |   *관련 링크*  | :link: "
+          }
+        },
+        {
+          type: "divider"
+        },
+        /* {
+          type: "section",
+          text: {
+            type: "mrkdwn",
+            text: "각종지표:"
+          },
+          accessory: {
+            type: "button",
+            text: {
+              type: "plain_text",
+              text: "미국 달러 지수",
+              emoji: true
+            },
+            url: `https://kr.investing.com/currencies/us-dollar-index`,
+            action_id: "button"
+          },
+          accessory: {
+            type: "button",
+            text: {
+              type: "plain_text",
+              text: "달러->엔",
+              emoji: true
+            },
+            url: `https://kr.investing.com/currencies/usd-jpy`,
+            action_id: "button"
+          },
+          accessory: [
+            {
+              type: "button",
+              text: {
+                type: "plain_text",
+                text: "달러->원22",
+                emoji: true
+              }
+            },
+            {
+              type: "button",
+              text: {
+                type: "plain_text",
+                text: "달러->원",
+                emoji: true
+              },
+              url: `https://kr.investing.com/currencies/usd-krw`,
+              action_id: "button"
+            }
+          ]
+        }, */
+        {
+          type: "section",
+          text: {
+            type: "mrkdwn",
+            text: "Nasdaq `공매도 잔량`정보(Nasdaq short interest):"
+          },
+          accessory: {
+            type: "button",
+            text: {
+              type: "plain_text",
+              text: "클릭",
+              emoji: true
+            },
+            url: `https://www.nasdaq.com/market-activity/stocks/${sym}/short-interest`,
+            action_id: "button"
+          }
+        },
+        {
+          type: "section",
+          text: {
+            type: "mrkdwn",
+            text: "`short volume`:"
+          },
+          accessory: {
+            type: "button",
+            text: {
+              type: "plain_text",
+              text: "클릭",
+              emoji: true
+            },
+            url: `http://shortvolumes.com/?t=${sym}`,
+            action_id: "button"
+          }
+        },
+        {
+          type: "section",
+          text: {
+            type: "mrkdwn",
+            text: "`내부자거래`"
+          },
+          accessory: {
+            type: "button",
+            text: {
+              type: "plain_text",
+              text: "insiderbuyingselling",
+              emoji: true
+            },
+            url: `http://insiderbuyingselling.com/?t=${sym}`,
+            action_id: "button"
+          }
+        },
+        {
+          type: "section",
+          text: {
+            type: "mrkdwn",
+            text: "`관련뉴스`"
+          },
+          accessory: {
+            type: "button",
+            text: {
+              type: "plain_text",
+              text: "fintel",
+              emoji: true
+            },
+            url: `https://fintel.io/s/us/${sym}`,
+            action_id: "button"
+          }
+        },
+        {
+          type: "section",
+          text: {
+            type: "mrkdwn",
+            text: "`reddit wallstreetbets`:"
+          },
+          accessory: {
+            type: "button",
+            text: {
+              type: "plain_text",
+              text: "클릭",
+              emoji: true
+            },
+            url: `https://www.reddit.com/r/wallstreetbets`,
+            action_id: "button"
+          }
         }
         /*
         {
@@ -236,6 +401,7 @@ exports.handler = async (event, context, callback) => {
   try {
     res = await getAlphaVantageApi("OVERVIEW", symbol);
     overview = await res.json();
+    console.log("overview:", overview);
   } catch (e) {
     console.log("getAlphaVantageApi OVERVIEW failed:", e);
   }
