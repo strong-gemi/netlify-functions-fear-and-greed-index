@@ -1,4 +1,4 @@
-export const marketCapitalization = mc => {
+export const getMarketCapitalization = mc => {
   return numberToKorean(mc);
 };
 

@@ -4,7 +4,20 @@ import fetch from "node-fetch";
 //const yaml = require("js-yaml");
 
 //import settings from "@/common/settings.yml";
-import { marketCapitalization } from "@/view-decorators/globalquote";
+import {
+  slackGetPrice,
+  getDivider,
+  slackGetFundamental,
+  slackGetShortRatio,
+  getLinkTitle,
+  getLinkShortInterest,
+  getLinkShortVolume,
+  getLinkInsiderbuyingselling,
+  getLinkNews,
+  getLinkRedditWallstreetbets
+} from "@/common/slack/fundamental-main-v2";
+
+import { getMarketCapitalization } from "@/view-decorators/globalquote";
 function getAlphaVantageApi(func, symbol) {
   const options = {
     method: "GET"
@@ -19,9 +32,6 @@ function getAlphaVantageApi(func, symbol) {
 }
 
 function notificationSlack(overview, globalQuote, symbol) {
-  const marketCapitalization2 = marketCapitalization(
-    overview["MarketCapitalization"]
-  );
   //const payload = {
   //  username: "webhook",
   //  channel: "@arkf",
@@ -30,7 +40,61 @@ function notificationSlack(overview, globalQuote, symbol) {
   //  icon_emoji: ":ghost:"
   //};
 
+  const price = globalQuote["Global Quote"]["05. price"];
+  const open = globalQuote["Global Quote"]["02. open"];
+  const low = globalQuote["Global Quote"]["04. low"];
+  const high = globalQuote["Global Quote"]["03. high"];
+
+  const mPrice = slackGetPrice(price, open, low, high);
+
+  const sector = overview["Sector"];
+  const industry = overview["Industry"];
+  const marketCapitalization = getMarketCapitalization(
+    overview["MarketCapitalization"]
+  );
+  const marketCapitalization2 = "test";
+  const LatestQuarter = overview["LatestQuarter"];
+  const EBITDA = overview["EBITDA"];
+  const PERatio = overview["PERatio"];
+  const PEGRatio = overview["PEGRatio"];
+
+  const mFundamental = slackGetFundamental(
+    sector,
+    industry,
+    marketCapitalization,
+    LatestQuarter,
+    EBITDA,
+    PERatio,
+    PEGRatio
+  );
+
+  const ShortRatio = overview["ShortRatio"];
+  const ShortPercentFloat = overview["ShortPercentFloat"];
+  const ShortPercentOutstanding = overview["ShortPercentOutstanding"];
+  const mShortRatio = slackGetShortRatio(
+    ShortRatio,
+    ShortPercentFloat,
+    ShortPercentOutstanding
+  );
   const sym = symbol.toLowerCase();
+  const array = [];
+  array.push(mPrice);
+  array.push(getDivider());
+  array.push(mFundamental);
+  array.push(getDivider());
+  array.push(mShortRatio);
+  array.push(getLinkTitle());
+  array.push(getDivider());
+
+  array.push(getLinkShortInterest(sym));
+
+  array.push(getLinkShortVolume(sym));
+  array.push(getLinkInsiderbuyingselling(sym));
+  array.push(getLinkNews(sym));
+  array.push(getLinkRedditWallstreetbets());
+
+  console.log("array:", array);
+
   return fetch(process.env.SLACK_WEBHOOK_URL, {
     headers: {
       "content-type": "application/json"
@@ -40,7 +104,8 @@ function notificationSlack(overview, globalQuote, symbol) {
       username: `${overview["Name"]} 펀더멘탈 정보`,
       channel: `#${sym}`,
       //text: "Fear & Greed Index",
-      blocks: [
+      blocks: array,
+      blocks2: [
         {
           type: "actions",
           elements: [
