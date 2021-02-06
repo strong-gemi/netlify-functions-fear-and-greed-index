@@ -9,6 +9,7 @@ import {
   slackGetPriceV2,
   slackGetPriceV3,
   slackGetPriceV4,
+  getCompangLogoUrl,
   getDivider,
   slackGetFundamental,
   slackGetShortRatio,
@@ -109,6 +110,7 @@ function notificationSlack(overview, globalQuote, symbol) {
     body: JSON.stringify({
       username: `${overview["Name"]} 펀더멘탈 정보`,
       channel: `#${sym}`,
+      icon_url: getCompangLogoUrl(sym),
       //text: "Fear & Greed Index",
       blocks: array,
       blocks2: [

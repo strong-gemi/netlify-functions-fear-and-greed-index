@@ -1,4 +1,8 @@
 import table from "markdown-table";
+
+export const getCompangLogoUrl = sym => {
+  return `https://eodhistoricaldata.com/img/logos/US/${sym.toUpperCase()}.png`;
+};
 export const slackGetPriceV4 = (sym, price, changePer, date) => {
   const t = table([
     ["Stock", "Price", "Change", "latest date"],
