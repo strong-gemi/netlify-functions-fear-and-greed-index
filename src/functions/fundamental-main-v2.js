@@ -6,6 +6,9 @@ import fetch from "node-fetch";
 //import settings from "@/common/settings.yml";
 import {
   slackGetPrice,
+  slackGetPriceV2,
+  slackGetPriceV3,
+  slackGetPriceV4,
   getDivider,
   slackGetFundamental,
   slackGetShortRatio,
@@ -39,13 +42,16 @@ function notificationSlack(overview, globalQuote, symbol) {
   //    "see more detail about `webhook` in http://qiita.com/rubytomato@github/items/6558bfdb37d982891c09#incoming-webhooks \n this message is sent via `curl`",
   //  icon_emoji: ":ghost:"
   //};
-
+  const sym = symbol.toLowerCase();
   const price = globalQuote["Global Quote"]["05. price"];
   const open = globalQuote["Global Quote"]["02. open"];
   const low = globalQuote["Global Quote"]["04. low"];
   const high = globalQuote["Global Quote"]["03. high"];
+  const latestDate = globalQuote["Global Quote"]["07. latest trading day"];
+  const changePer = globalQuote["Global Quote"]["10. change percent"];
 
-  const mPrice = slackGetPrice(price, open, low, high);
+  const mPrice = slackGetPriceV4(sym, price, changePer, latestDate);
+  //const mPrice = slackGetPriceV4(price, open, low, high);
 
   const sector = overview["Sector"];
   const industry = overview["Industry"];
@@ -76,7 +82,7 @@ function notificationSlack(overview, globalQuote, symbol) {
     ShortPercentFloat,
     ShortPercentOutstanding
   );
-  const sym = symbol.toLowerCase();
+
   const array = [];
   array.push(mPrice);
   array.push(getDivider());

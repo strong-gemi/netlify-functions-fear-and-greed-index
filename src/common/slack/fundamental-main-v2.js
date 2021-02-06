@@ -1,3 +1,69 @@
+import table from "markdown-table";
+export const slackGetPriceV4 = (sym, price, changePer, date) => {
+  const t = table([
+    ["Stock", "Price", "Change", "latest date"],
+    [sym, price, changePer, date]
+  ]);
+
+  const t2 = "```" + t + "```";
+
+  return {
+    type: "section",
+    text: {
+      type: "mrkdwn",
+      text: t2
+    }
+  };
+};
+
+export const slackGetPriceV3 = (price, open, low, high) => {
+  return {
+    type: "section",
+    text: {
+      text: "Conference Standings:",
+      type: "mrkdwn"
+    },
+    fields: [
+      {
+        type: "mrkdwn",
+        text: "*Team*"
+      },
+      {
+        type: "mrkdwn",
+        text: "*W-L*"
+      },
+      {
+        type: "mrkdwn",
+        text: "*2222*"
+      },
+      {
+        type: "plain_text",
+        text: "Team1\nTeam2\nTeam3\nTeam4\nTeam5\n"
+      },
+      {
+        type: "plain_text",
+        text: "1\n2\n3\n4\n5\n"
+      },
+      {
+        type: "plain_text",
+        text: "1\n2\n3\n4\n5\n"
+      }
+    ]
+  };
+};
+
+//TODO 값입력 우에할꼬
+export const slackGetPriceV2 = (price, open, low, high) => {
+  return {
+    type: "section",
+    text: {
+      type: "mrkdwn",
+      text:
+        "``` ------------ ------------ ------------ ----------- \n| 종전 시작가   | Header 2   | Header 3  | Header 4  |\n ============ ============ ============ =========== \n| `${price}` | column 2   | column 3  | column 4  |\n ------------ ------------ ------------ ----------- ```"
+    }
+  };
+};
+
 export const slackGetPrice = (price, open, low, high) => {
   return {
     type: "section",
