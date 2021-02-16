@@ -449,6 +449,7 @@ exports.handler = async (event, context, callback) => {
 
   //GLOBAL_QUOTE
   const body = event["body"];
+  console.log("body:", body);
   const text = body.split("&text=")[1];
   const symbol = text.split("&")[0];
   console.log("body:", body);
