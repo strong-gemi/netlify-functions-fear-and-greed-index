@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "netlify-lambda serve src/functions --config ./webpack.functions.js",
-    "build": "netlify-lambda build src/functions"
+    "build": "netlify-lambda build src/functions --config ./webpack.functions.js"
   },
   "author": "",
   "license": "ISC",
